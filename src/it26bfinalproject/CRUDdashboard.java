@@ -246,6 +246,38 @@ public class CRUDdashboard extends javax.swing.JFrame {
         }
     }
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
+        int opt = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete?", "Confirm", JOptionPane.YES_NO_OPTION);
+
+        if (opt == JOptionPane.YES_OPTION) {
+            try {
+                Connection conn = connectionDB.getConnection();
+                // Deletes from 'information' table using Username as the key
+                String sql = "DELETE FROM information WHERE Username=?";
+                PreparedStatement pst = conn.prepareStatement(sql);
+
+                pst.setString(1, jTextField3.getText()); // Matches your 'Username' field
+
+                pst.executeUpdate();
+                table_update(); // Refreshes the JTable so the deleted row disappears
+
+                JOptionPane.showMessageDialog(this, "Record Deleted Successfully");
+
+                // Clear fields after deletion
+                jTextField3.setText("");
+                jTextField6.setText("");
+                jTextField1.setText("");
+                jTextField2.setText("");
+                jTextField4.setText("");
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Delete Error: " + e.getMessage());
+            }
+        }
+    }
+    
+    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
