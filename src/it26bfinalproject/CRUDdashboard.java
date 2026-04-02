@@ -226,6 +226,26 @@ public class CRUDdashboard extends javax.swing.JFrame {
         pack();
     }
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+        try {
+            Connection conn = connectionDB.getConnection();
+            String sql = "INSERT INTO information (Username, Firstname, Lastname, Course, Yearlevel) VALUES (?,?,?,?,?)";
+            PreparedStatement pst = conn.prepareStatement(sql);
+
+            pst.setString(1, jTextField3.getText());
+            pst.setString(2, jTextField6.getText());
+            pst.setString(3, jTextField1.getText());
+            pst.setString(4, jTextField2.getText());
+            pst.setString(5, jTextField4.getText());
+
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(this, "Student Enrolled!");
+            table_update();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Insert Error: " + e.getMessage());
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
